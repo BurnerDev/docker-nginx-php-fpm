@@ -89,6 +89,11 @@ if [ ! -z "$PHP_UPLOAD_MAX_FILESIZE" ]; then
   sed -i "s/upload_max_filesize = 100M/upload_max_filesize= ${PHP_UPLOAD_MAX_FILESIZE}M/g" /etc/php7/conf.d/php.ini
 fi
 
+# Set Session Save Path
+if [ ! -z "$PHP_SESSION_SAVE_PATH" ]; then
+ sed -i "s/;session.save_path = "/tmp"/session.save_path = ${PHP_SESSION_SAVE_PATH}/g" /etc/php5/conf.d/php.ini
+fi
+
 # Always chown webroot for better mounting
 chown -Rf nginx.nginx /var/www/html
 
