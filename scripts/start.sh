@@ -91,7 +91,7 @@ fi
 
 # Set Session Save Path
 if [ ! -z "$PHP_SESSION_SAVE_PATH" ]; then
- sed -i "s/;session.save_path = "/tmp"/session.save_path = ${PHP_SESSION_SAVE_PATH}/g" /etc/php5/conf.d/php.ini
+ sed -i "s/;session.save_path = \"/tmp\"/session.save_path = ${PHP_SESSION_SAVE_PATH}/g" /etc/php5/conf.d/php.ini
 fi
 
 # Always chown webroot for better mounting
