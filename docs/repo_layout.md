@@ -2,7 +2,8 @@
 
 We recommend laying out your source git repository in the following way, to enable you to use all the features of the container.
 
-It's important to note code will always be checked out to ```/var/www/html/``` this is for historic reasons and we may improve this in the future with a user configurable variable. If you just wish to check code out into a container and not do anything special simply put all your files in the root directory of your repository like so:
+It's important to note code will always be checked out to ```/var/www/html/``` this is for historic reasons and we may improve this in the future with a user configurable variable.
+If you just wish to check code out into a container and not do anything special simply put all your files in the root directory of your repository like so:
 
 ```
 - repo root (/var/www/html)

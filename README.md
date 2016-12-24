@@ -68,17 +68,32 @@ You can pass the container your personal access token from your git account usin
 Since the access token acts as a password with limited access, the git push/pull uses HTTPS to authenticate. You will need to specify your __GIT_USERNAME__ and __GIT_PERSONAL_TOKEN__ variables to push and pull. You'll need to also have the __GIT_EMAIL__, __GIT_NAME__ and __GIT_REPO__ common variables defined.
 
 ```
-docker run -d -e 'GIT_EMAIL=email_address' -e 'GIT_NAME=full_name' -e 'GIT_USERNAME=git_username' -e 'GIT_REPO=github.com/project' -e 'GIT_PERSONAL_TOKEN=<long_token_string_here>' richarvey/nginx-php-fpm:latest
+docker run -d \
+  -e 'GIT_EMAIL=email_address' \
+  -e 'GIT_NAME=full_name' \
+  -e 'GIT_USERNAME=git_username' \
+  -e 'GIT_REPO=github.com/project' \
+  -e 'GIT_PERSONAL_TOKEN=<long_token_string_here>' \
+  richarvey/nginx-php-fpm:latest
 ```
 
 To pull a repository and specify a branch add the __GIT_BRANCH__ environment variable:
 ```
-docker run -d -e 'GIT_EMAIL=email_address' -e 'GIT_NAME=full_name' -e 'GIT_USERNAME=git_username' -e 'GIT_REPO=github.com/project' -e 'GIT_PERSONAL_TOKEN=<long_token_string_here>' -e 'GIT_BRANCH=stage' richarvey/nginx-php-fpm:latest
+docker run -d \
+  -e 'GIT_EMAIL=email_address' \
+  -e 'GIT_NAME=full_name' \
+  -e 'GIT_USERNAME=git_username' \
+  -e 'GIT_REPO=github.com/project' \
+  -e 'GIT_PERSONAL_TOKEN=<long_token_string_here>' \
+  -e 'GIT_BRANCH=stage' \
+  richarvey/nginx-php-fpm:latest
 ```
 #### SSH keys
 
 ##### Preparing your SSH key
-The container has the option for you to pass it the __SSH_KEY__ variable with a **base64** encoded private key. First generate your key and then make sure to add it to github and give it write permissions if you want to be able to push code from the container. Then run:
+The container has the option for you to pass it the __SSH_KEY__ variable with a **base64** encoded private key.
+First generate your key and then make sure to add it to github and give it write permissions if you want to be able to push code from the container.
+Then run:
 ```
 base64 -w 0 /path_to_your_key
 ```
@@ -88,25 +103,38 @@ base64 -w 0 /path_to_your_key
 
 To run the container and pull code simply specify the GIT_REPO URL including *git@* and then make sure you have also supplied your base64 version of your ssh deploy key:
 ```
-sudo docker run -d -e 'GIT_NAME=full_name' -e 'GIT_USERNAME=git_username' -e 'GIT_REPO=github.com/project' -e 'SSH_KEY=BIG_LONG_BASE64_STRING_GOES_IN_HERE' richarvey/nginx-php-fpm:latest
+sudo docker run -d \
+  -e 'GIT_NAME=full_name' \
+  -e 'GIT_USERNAME=git_username' \
+  -e 'GIT_REPO=github.com/project' \
+  -e 'SSH_KEY=BIG_LONG_BASE64_STRING_GOES_IN_HERE' \
+  richarvey/nginx-php-fpm:latest
 ```
 
 To pull a repository and specify a branch add the GIT_BRANCH environment variable:
 ```
-sudo docker run -d -e 'GIT_NAME=full_name' -e 'GIT_USERNAME=git_username' -e 'GIT_REPO=github.com/project' -e 'SSH_KEY=BIG_LONG_BASE64_STRING_GOES_IN_HERE' -e 'GIT_BRANCH=stage' richarvey/nginx-php-fpm:latest
+sudo docker run -d \
+  -e 'GIT_NAME=full_name' \
+  -e 'GIT_USERNAME=git_username' \
+  -e 'GIT_REPO=github.com/project' \
+  -e 'SSH_KEY=BIG_LONG_BASE64_STRING_GOES_IN_HERE' \
+  -e 'GIT_BRANCH=stage' \
+  richarvey/nginx-php-fpm:latest
 ```
 
 ### Custom Nginx Config files
-Sometimes you need a custom config file for nginx to achieve this read the [Nginx config guide](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/nginx_configs.md) 
+Sometimes you need a custom config file for nginx to achieve this read the [Nginx config guide](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/nginx_configs.md)
 
 ### Scripting and Templating
 Please see the [Scripting and templating guide](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/scripting_templating.md) for more details.
 
 ### Lets Encrypt support
-This container includes support to easily manage lets encrypt certificates. Please see the [Lets Encrypt guide](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/lets_encrypt.md) for more details.
+This container includes support to easily manage lets encrypt certificates.
+Please see the [Lets Encrypt guide](https://github.com/ngineered/nginx-php-fpm/blob/master/docs/lets_encrypt.md) for more details.
 
 ## Special Git Features
-Specify the ```GIT_EMAIL``` and ```GIT_NAME``` variables for this to work. They are used to set up git correctly and allow the following commands to work.
+Specify the ```GIT_EMAIL``` and ```GIT_NAME``` variables for this to work.
+They are used to set up git correctly and allow the following commands to work.
 
 ### Push code to Git
 To push code changes made within the container back to git run:
@@ -127,4 +155,5 @@ All logs should now print out in stdout/stderr and are available via the docker 
 docker logs <CONTAINER_NAME>
 ```
 ### WebRoot
-You can set your webroot in the container to anything you want using the ```WEBROOT``` variable e.g -e "WEBROOT=/var/www/html/public". By default code is checked out into /var/www/html/ so if your git repository does not have code in the root you'll need to use this variable.
+You can set your webroot in the container to anything you want using the ```WEBROOT``` variable e.g -e "WEBROOT=/var/www/html/public".
+By default code is checked out into /var/www/html/ so if your git repository does not have code in the root you'll need to use this variable.
